@@ -1,4 +1,5 @@
 ﻿using System;
+using LoveHeart.Domain;
 
 namespace LoveHeart
 {
@@ -6,7 +7,8 @@ namespace LoveHeart
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ViewHandler viewHandler = new ViewHandler();
+            viewHandler.Run();
         }
     }
 }
