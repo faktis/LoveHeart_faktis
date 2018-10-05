@@ -17,6 +17,20 @@ namespace LoveHeart.Domain
         }
         public void ViewChange()
         {
+            switch (CurrentView)
+            {
+                case Views.LOGIN:
+                    currView = new LoginView();
+                    break;
+                //case Views.RECEPTIONVIEW:
+                //    currView = new ReceptionView();
+                //    break;
+                case Views.ENDPROGRAM:
+                    Console.Clear();
+                    currView = new EndProgramView();
+                    running = false;
+                    break;
+            }
             currView.Draw();
         }
         public void Run()
@@ -24,6 +38,7 @@ namespace LoveHeart.Domain
             while(running)
             {
                 currView.Draw();
+                ViewChange();
             }
         }
     }
