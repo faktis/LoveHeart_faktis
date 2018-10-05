@@ -6,8 +6,8 @@ namespace LoveHeart.Domain
 {
     class ViewHandler
     {
-        public enum Views { LOGIN, RECEPTIONVIEW, ENDPROGRAM }
-        public static Views CurrentView = Views.LOGIN;
+        public enum Views { Login, Reception, EndProgram }
+        public static Views CurrentView = Views.Login;
         private IView currView;
         private static bool running = true;
 
@@ -19,13 +19,10 @@ namespace LoveHeart.Domain
         {
             switch (CurrentView)
             {
-                case Views.LOGIN:
+                case Views.Login:
                     currView = new LoginView();
                     break;
-                //case Views.RECEPTIONVIEW:
-                //    currView = new ReceptionView();
-                //    break;
-                case Views.ENDPROGRAM:
+                case Views.EndProgram:
                     Console.Clear();
                     currView = new EndProgramView();
                     running = false;

@@ -17,9 +17,5 @@ namespace LoveHeart.Domain
             Console.WriteLine("Thank you, come again\n");
         }
 
-        public List<string> InputValues()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -42,18 +42,14 @@ namespace LoveHeart.Domain
                 
             }
         }
-        public List<String> InputValues()
-        {
-            List<String> retValues = new List<String>() { userName, passWord }; ;
-            return retValues;
-        }
+
         public bool ActionButtonPressed(ConsoleKey key)
         {
             bool viewChangeInit = false;
             switch(key)
             {
                 case ConsoleKey.Y:
-                    ViewHandler.CurrentView = ViewHandler.Views.RECEPTIONVIEW;
+                    ViewHandler.CurrentView = ViewHandler.Views.Reception;
                     viewChangeInit = true;
                     break;
                 case ConsoleKey.N:
@@ -64,47 +60,14 @@ namespace LoveHeart.Domain
                     draw.WriteAt("\t\t", 10, 3);
                     currInputField = InputFields.USERNAME;
                     break;
-                //case ConsoleKey.UpArrow:
-                //    ChangeInputField();
-                //    break;
-                //case ConsoleKey.DownArrow:
-                //    ChangeInputField();
-                //    break;
                 case ConsoleKey.Escape:
-                    ViewHandler.CurrentView = ViewHandler.Views.ENDPROGRAM;
+                    ViewHandler.CurrentView = ViewHandler.Views.EndProgram;
                     viewChangeInit = true;
                     break;
             }
             
             return viewChangeInit;
         }
-
-        //private bool UpOrDownArrowKeyOrEscapeKeyPressed(ConsoleKey key)
-        //{
-        //    bool hasBeenPressed = false;
-        //    if (key == ConsoleKey.UpArrow || key == ConsoleKey.DownArrow || key == ConsoleKey.Escape)
-        //    {
-        //        hasBeenPressed = true;
-        //    }
-        //    return hasBeenPressed;
-        //}
-
-        //private void ChangeInputField()
-        //{
-        //    if (currInputField != InputFields.OTHER)
-        //    {
-                
-        //        if (currInputField == InputFields.USERNAME)
-        //        {
-        //            currInputField = InputFields.PASSWORD;
-        //        }
-        //        else
-        //        {
-        //            currInputField = InputFields.USERNAME;
-        //        }
-                
-        //    }
-        //}
 
         private void InputValue()
         {
