@@ -18,8 +18,6 @@ namespace LoveHeart.Domain
 
         }
 
-
-
         public override string ToString()
         {
             return "$Account Type: System Administrator\n" +

@@ -22,9 +22,9 @@ namespace LoveHeart.Domain
                 "Name: {UserName}";
         }
 
-        public Customer AddCustomer(string userName, string passWord, Animal animal = null, List <Animal> animals = null)
+        public Customer AddCustomer(string userName, string passWord, string socialSequrityNumber, Animal animal = null, List <Animal> animals = null)
         {
-           return new Customer(userName, passWord, animal, animals);
+           return new Customer(userName, passWord, socialSequrityNumber, animal, animals);
         }
 
         public bool AddAnimal(Customer customer, Animal animal)

@@ -83,7 +83,16 @@ namespace LoveHeart.Domain
             }
             return false;
         }
-        
+        public bool AddVeterinary(SystemAdministrator systemAdministrator)
+        {
+            if (UserNameAvailable(systemAdministrator.UserName))
+            {
+                users.Add(systemAdministrator.UserName, systemAdministrator);
+                return true;
+            }
+            return false;
+        }
+
 
     }
 

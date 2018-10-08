@@ -14,19 +14,31 @@ namespace LoveHeart.Domain
         protected virtual ViewInternal CurrentInternalView { get; set; }
         protected IView CurrentView { private get; set; }
 
+        protected string message;
+        //public bool MessageUpdate { get; set; }
 
-
-
-
-        private string userName;
+        public string UserName { get; }
         public ViewReception(string userName)
         {
             CurrentInternalView = ViewInternal.Main;
             CurrentView = this;
             Console.Clear();
             draw = new Draw();
-            this.userName = userName;
+            UserName = userName;
+            message = userName;
         }
+
+        public virtual string Message()
+        { 
+            return message;
+        }
+
+       // protected virtual void Message(string message)
+        //{
+          //  this.message = message;
+        //}
+
+
         public virtual void Draw()
         {
 
@@ -58,14 +70,10 @@ namespace LoveHeart.Domain
                 case ConsoleKey.O:
                     ViewHandler.CurrentView = ViewHandler.Views.Login;
                     return true;
-                    break;
+                    //break;
                 case ConsoleKey.C:
                     Console.Clear();
-                    userName = "";
-                    ViewHandler.CurrentView = ViewAddCustomer:
-                    draw.WriteAt("\t\t", 10, 2);
-                    draw.WriteAt("\t\t", 10, 3);
-                    //currInputField = InputFields.USERNAME;
+                    CurrentInternalView = ViewInternal.AddCustomer;
                     break;
                 case ConsoleKey.Escape:
                     ViewHandler.CurrentView = ViewHandler.Views.EndProgram;
@@ -94,15 +102,24 @@ namespace LoveHeart.Domain
             private string socialSequrityNumber;
             private enum InputFields { Name, SocialSequrityNumber, Other }
             private InputFields currentInputField;
+
+
             public ViewAddCustomer(string userName) : base(userName)
             {
                 Init();
             }
+
             public void Init()
             {
                 CurrentInternalView = ViewInternal.AddCustomer;
                 currentInputField = InputFields.Name;
             }
+
+            public override string Message()
+            {
+                return "$ { UserName } : { user } : { socialSequrityNumber } ";
+            }
+
             public override void Draw()
             {
 
@@ -118,6 +135,7 @@ namespace LoveHeart.Domain
                     InputValue();
                 }
             }
+
             public override bool InputValue()
             {
                 if (currentInputField == InputFields.Name)
@@ -125,15 +143,13 @@ namespace LoveHeart.Domain
                     draw.WriteAt("", 10, 2);
                     name = Console.ReadLine();
                     currentInputField = InputFields.SocialSequrityNumber;
-                    //draw.WriteAt("", 10, 3);
+                    
                 }
                 else if (currentInputField == InputFields.SocialSequrityNumber)
                 {
                     draw.WriteAt("", 10, 3);
                     socialSequrityNumber = Console.ReadLine();
                     currentInputField = InputFields.Other;
-                    //draw.WriteAt("", 10, 4);
-                    return true;
                 }
                 else
                 {
@@ -145,20 +161,19 @@ namespace LoveHeart.Domain
                 }
                 return false;
             }
+
             public override bool ActionButtonPressed(ConsoleKey key)
             {
-                //bool viewChangeInit = false;
                 switch (key)
                 {
-                    case ConsoleKey.O:
-                        ViewHandler.CurrentView = ViewHandler.Views.Login;
+                    case ConsoleKey.Y:
+                        message = Message();
                         return true;
-                        //break;
-                    case ConsoleKey.C:
+                    case ConsoleKey.N:
                         Console.Clear();
-                        userName = "";
-                        draw.WriteAt("\t\t", 10, 2);
-                        draw.WriteAt("\t\t", 10, 3);
+                        name = "";
+                        socialSequrityNumber = "";
+                        currentInputField = InputFields.Name;
                         break;
                     case ConsoleKey.Escape:
                         ViewHandler.CurrentView = ViewHandler.Views.EndProgram;
