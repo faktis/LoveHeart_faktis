@@ -21,6 +21,15 @@ namespace LoveHeart.Domain
             return "$Account Type: Receptionist\n" +
                 "Name: {UserName}";
         }
-       
+
+        public Customer AddCustomer(string userName, string passWord, Animal animal = null, List <Animal> animals = null)
+        {
+           return new Customer(userName, passWord, animal, animals);
+        }
+
+        public bool AddAnimal(Customer customer, Animal animal)
+        {
+            return customer.AddAnimal(animal);
+        }
     }
 }

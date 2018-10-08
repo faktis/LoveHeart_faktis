@@ -7,10 +7,21 @@ namespace LoveHeart.Domain
     class Customer : User
     {
         public List<Animal> animals;
-        public Customer(string userName, string passWord, Animal animal = null) : base(userName, passWord)
+        public string SocialSequrityNumber { get; private set; }
+        public Customer(string userName, string passWord, string socialSequrityNumber , Animal animal = null, List <Animal> animals = null) : base(userName, passWord)
         {
             Init();
-            if (animal != null)
+            SocialSequrityNumber = socialSequrityNumber;
+            if (animals != null)
+            {
+                this.animals = animals; 
+                if (animal != null)
+                {
+
+                    animals.Add(animal);
+                }
+            }
+            else if(animal != null)
             {
                 animals = new List<Animal>() { animal };
             }
@@ -19,10 +30,15 @@ namespace LoveHeart.Domain
                 animals = new List<Animal>();
             }
         }
-        
-        public void AddAnimal(Animal animal)
+
+        public bool AddAnimal(Animal animal)
         {
-            animals.Add(animal);
+            if (!animals.Contains(animal))
+            {
+                animals.Add(animal);
+                return true;
+            }
+            return false;
         }
 
         public override void Init()
@@ -33,7 +49,7 @@ namespace LoveHeart.Domain
 
         public override string ToString()
         {
-            return "$Account Type: Receptionist\n" +
+            return "$Account Type: Customer\n" +
                 "Name: {UserName}";
         }
     }

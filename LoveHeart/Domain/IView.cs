@@ -4,10 +4,19 @@ using System.Text;
 
 namespace LoveHeart.Domain
 {
+
     interface IView
     {
         void Draw();
-        //List <String> InputValues();
         bool ActionButtonPressed(ConsoleKey key);
+        IView CurrentInternalView
+        {
+            get; set;
+        }
+        
+    }
+    interface IInput
+    {
+        bool ValidInput();
     }
 }

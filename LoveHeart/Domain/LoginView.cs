@@ -11,6 +11,8 @@ namespace LoveHeart.Domain
         private InputFields currInputField;
         private string userName;
         private string passWord;
+        public IView CurrentInternalView { get; set; }
+
         public LoginView()
         {
             Console.Clear();

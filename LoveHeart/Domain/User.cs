@@ -8,13 +8,12 @@ namespace LoveHeart.Domain
     abstract class User : IUser
     {
         public virtual string UserName { get; set; }
-        public virtual string PassWord { private get; set; }
+        public virtual string PassWord { private get;  set; }
         public virtual AccessLevel AccessLevel { get; protected set; }
 
 
 
         public virtual int UserId { get; set; }
-        //protected User(string userName, string passWord)
 
         public bool PassWordPass(string passWord)
         {
@@ -26,19 +25,18 @@ namespace LoveHeart.Domain
         }
         public abstract void Init();
         public abstract override string ToString();
-        public User(string userName, string passWord)
+        public User(string userName, string passWord = "")
         {
             UserName = userName;
-            PassWord = passWord;
             UserId++;
+            if (passWord != PassWord)
+            {
+                PassWord = passWord;
+            }
+            else
+            {
+                passWord = passWord + UserId.ToString();
+            }
         }
-
-       
-
-        
-        
-        
-            
-
     }
 }

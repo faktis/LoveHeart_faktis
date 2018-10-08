@@ -6,12 +6,14 @@ namespace LoveHeart.Domain
 {
     class Veterinary : User
     {
-        public override void Init(string userName, string passWord)
+        public Veterinary(string userName, string passWord) : base(userName, passWord)
         {
-            UserName = userName;
-            PassWord = passWord;
+            Init();
+        }
+
+        public override void Init()
+        {
             AccessLevel = AccessLevel.Veterinary;
-            UserId++;
         }
 
         public override string ToString()

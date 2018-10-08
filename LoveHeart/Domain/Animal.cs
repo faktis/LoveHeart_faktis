@@ -8,11 +8,11 @@ namespace LoveHeart.Domain
     {
         private static int AnimalId = 0;
         public string Name { get; set; }
-        public List <string> MedicalJournal
+        public Dictionary <string, string> MedicalJournal
         {
             get; set;
         }
-        public Animal(string name, List <string> medicalJournal = null)
+        public Animal(string name, Dictionary <string, string> medicalJournal = null)
         {
 
             if (medicalJournal != null)
@@ -21,7 +21,7 @@ namespace LoveHeart.Domain
             }
             else
             {
-                medicalJournal = new List<string>();
+                medicalJournal = new Dictionary<string, string>();
             }
             AnimalId++;
             Name = name;

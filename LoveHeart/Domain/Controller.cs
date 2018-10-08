@@ -13,7 +13,7 @@ namespace LoveHeart.Domain
 
         public Controller()
         {
-            users.Add("EdvinA", new Receptionist("edvin", "passWord"));
+            //users.Add("EdvinA", new Receptionist("edvin", "passWord"));
             activeUser = null;
         }
 
@@ -29,7 +29,13 @@ namespace LoveHeart.Domain
             }
             return false;
         }
+        
+        public void Logout()
+        {
+            activeUser = null;
+        }
 
         
+
     }
 }
