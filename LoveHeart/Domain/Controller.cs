@@ -8,7 +8,7 @@ namespace LoveHeart.Domain
     {
         private IUser activeUser;
         private Dictionary <string, IUser> users;
-        private static int AnimalId;
+        
 
 
         public Controller()
