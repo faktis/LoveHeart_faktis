@@ -13,18 +13,18 @@ namespace LoveHeart.Domain
 
         public ViewHandler()
         {
-            currView = new LoginView();
+            currView = new ViewLogin();
         }
         public void ViewChange()
         {
             switch (CurrentView)
             {
                 case Views.Login:
-                    currView = new LoginView();
+                    currView = new ViewLogin();
                     break;
                 case Views.EndProgram:
                     Console.Clear();
-                    currView = new EndProgramView();
+                    currView = new ViewEndProgram();
                     running = false;
                     break;
             }

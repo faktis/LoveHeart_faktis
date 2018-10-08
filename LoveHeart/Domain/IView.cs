@@ -9,10 +9,12 @@ namespace LoveHeart.Domain
     {
         void Draw();
         bool ActionButtonPressed(ConsoleKey key);
-        IView CurrentInternalView
+        bool InputValue();
+        //void InputFields(Enum @enum); 
+        /*IView CurrentInternalViewCurre
         {
             get; set;
-        }
+        }*/
         
     }
     interface IInput

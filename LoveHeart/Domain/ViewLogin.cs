@@ -4,16 +4,16 @@ using System.Text;
 
 namespace LoveHeart.Domain
 {
-    class LoginView : IView
+    class ViewLogin : IView
     {
         private Draw draw;
         private enum InputFields {USERNAME, PASSWORD, OTHER};
         private InputFields currInputField;
         private string userName;
         private string passWord;
-        public IView CurrentInternalView { get; set; }
+        public IView CurrentViewInternal { get; set; }
 
-        public LoginView()
+        public ViewLogin()
         {
             Console.Clear();
             draw = new Draw();
@@ -71,7 +71,7 @@ namespace LoveHeart.Domain
             return viewChangeInit;
         }
 
-        private void InputValue()
+        public virtual bool InputValue()
         {
             
             if (currInputField == InputFields.USERNAME)
@@ -89,7 +89,9 @@ namespace LoveHeart.Domain
                 draw.WriteAt("", 10, 3);
                 passWord = Console.ReadLine();
                 currInputField = InputFields.OTHER;
+                return true;
             }
+            return false;
         }
     }
 }

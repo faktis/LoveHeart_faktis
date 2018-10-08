@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LoveHeart.Domain
 {
-    class EndProgramView : IView
+    class ViewEndProgram : IView
     {
         public bool ActionButtonPressed(ConsoleKey key)
         {
@@ -17,5 +17,9 @@ namespace LoveHeart.Domain
             Console.WriteLine("Thank you, come again\n");
         }
 
+        public bool InputValue()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

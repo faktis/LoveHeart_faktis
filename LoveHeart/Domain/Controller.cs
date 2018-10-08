@@ -7,8 +7,8 @@ namespace LoveHeart.Domain
     class Controller
     {
         private IUser activeUser;
-        private Dictionary <string, IUser> users;
-        
+        private Dictionary<string, IUser> users;
+
 
 
         public Controller()
@@ -29,13 +29,64 @@ namespace LoveHeart.Domain
             }
             return false;
         }
-        
+
         public void Logout()
         {
             activeUser = null;
         }
 
+        private bool UserNameAvailable(string userName)
+        {
+            if (!users.ContainsKey(userName))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool AddUser(IUser user)
+        {
+            if (UserNameAvailable(user.UserName))
+            {
+                users.Add(user.UserName, user);
+                return true;
+            }
+            return false;
+        }
+
+        public bool AddCustomer(Customer customer)
+        {
+            if (UserNameAvailable(customer.UserName))
+            {
+                users.Add(customer.UserName, customer);
+                return true;
+            }
+            return false;
+        }
+
+        public bool AddReceptionist(Receptionist receptionist)
+        {
+            if (UserNameAvailable(receptionist.UserName))
+            {
+                users.Add(receptionist.UserName, receptionist);
+                return true;
+            }
+            return false;
+        }
+
+        public bool AddVeterinary(Veterinary veterinary)
+        {
+            if (UserNameAvailable(veterinary.UserName))
+            {
+                users.Add(veterinary.UserName, veterinary);
+                return true;
+            }
+            return false;
+        }
         
 
     }
+
+    
+        
 }
