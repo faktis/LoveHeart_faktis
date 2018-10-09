@@ -10,34 +10,27 @@ namespace LoveHeart.Domain
 
         private Draw draw;
 
-        protected enum ViewInternal { Main, AddCustomer, AddAnimalAndCustomer, AddAnimalToCustomer };
-        protected virtual ViewInternal CurrentInternalView { get; set; }
-        protected IView CurrentView { private get; set; }
-
-        protected string message;
+        //protected enum ViewInternal { Main, AddCustomer, AddAnimalAndCustomer, AddAnimalToCustomer };
+        //protected virtual ViewInternal CurrentInternalView { get; set; }
+        //protected IView CurrentView { private get; set; }
+        //protected string message; //public bool MessageUpdate { get; set; }
         //public bool MessageUpdate { get; set; }
 
+        public bool LoggedIn { get; set; }
         public string UserName { get; }
+
         public ViewReception(string userName)
         {
-            CurrentInternalView = ViewInternal.Main;
-            CurrentView = this;
             Console.Clear();
             draw = new Draw();
             UserName = userName;
-            message = userName;
+            LoggedIn = true;
         }
 
         public virtual string Message()
         { 
-            return message;
+            return "Reception";
         }
-
-       // protected virtual void Message(string message)
-        //{
-          //  this.message = message;
-        //}
-
 
         public virtual void Draw()
         {
@@ -50,9 +43,9 @@ namespace LoveHeart.Domain
             draw.WriteAt("Log (O)ut", 0, 6);
 
 
-            while (CurrentInternalView == ViewInternal.Main)
+            while (InputValue())
             {
-                InputValue();
+                
             }
 
 
@@ -68,13 +61,14 @@ namespace LoveHeart.Domain
             switch (key)
             {
                 case ConsoleKey.O:
+                    LoggedIn = false;
                     ViewHandler.CurrentView = ViewHandler.Views.Login;
                     return true;
                     //break;
                 case ConsoleKey.C:
-                    Console.Clear();
-                    CurrentInternalView = ViewInternal.AddCustomer;
-                    break;
+                    //Console.Clear();
+                    ViewHandler.CurrentView = ViewHandler.Views.AddCustomer;
+                    return true;
                 case ConsoleKey.Escape:
                     ViewHandler.CurrentView = ViewHandler.Views.EndProgram;
                     return true;
@@ -88,11 +82,7 @@ namespace LoveHeart.Domain
 
         public virtual bool InputValue()
         {
-            if (ActionButtonPressed(Console.ReadKey().Key))
-            {
-                return true;
-            }
-            return false;
+            return ActionButtonPressed(Console.ReadKey().Key);
         }
 
 
@@ -117,7 +107,7 @@ namespace LoveHeart.Domain
 
             public override string Message()
             {
-                return "$ { UserName } : { user } : { socialSequrityNumber } ";
+                return "$MakeCustomer { user } { socialSequrityNumber } ";
             }
 
             public override void Draw()
@@ -154,10 +144,8 @@ namespace LoveHeart.Domain
                 else
                 {
                     draw.WriteAt("Is this information correct? (Y)es or (N)o", 10, 5);
-                    if (ActionButtonPressed(Console.ReadKey().Key))
-                    {
-                        return true;
-                    }
+                    return ActionButtonPressed(Console.ReadKey().Key);
+                    
                 }
                 return false;
             }
@@ -168,17 +156,18 @@ namespace LoveHeart.Domain
                 {
                     case ConsoleKey.Y:
                         message = Message();
+
                         return true;
                     case ConsoleKey.N:
                         Console.Clear();
                         name = "";
                         socialSequrityNumber = "";
                         currentInputField = InputFields.Name;
-                        break;
+                        return true;
                     case ConsoleKey.Escape:
                         ViewHandler.CurrentView = ViewHandler.Views.EndProgram;
                         return true;
-                        //break;
+                        
                 }
 
                 return false;

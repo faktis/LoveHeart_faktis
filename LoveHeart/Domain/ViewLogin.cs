@@ -21,6 +21,15 @@ namespace LoveHeart.Domain
             userName = "";
             passWord = "";
         }
+
+        public void Run()
+        {
+            while (InputValue())
+            {
+                Draw();
+            }
+        }
+
         public void Draw()
         {
             
@@ -28,10 +37,7 @@ namespace LoveHeart.Domain
             draw.WriteAt("Username: ", 0, 2);
             draw.WriteAt("Password: ", 0, 3);
 
-            while (currInputField != InputFields.OTHER)
-            {
-                InputValue();                
-            }
+            
 
             if (userName!=""&&passWord!="")
             {
@@ -47,13 +53,13 @@ namespace LoveHeart.Domain
 
         public bool ActionButtonPressed(ConsoleKey key)
         {
-            bool viewChangeInit = false;
+            //bool viewChangeInit = false;
             switch(key)
             {
                 case ConsoleKey.Y:
                     ViewHandler.CurrentView = ViewHandler.Views.Reception;
-                    viewChangeInit = true;
-                    break;
+                    return true;
+                   
                 case ConsoleKey.N:
                     Console.Clear();
                     userName = "";
@@ -64,11 +70,11 @@ namespace LoveHeart.Domain
                     break;
                 case ConsoleKey.Escape:
                     ViewHandler.CurrentView = ViewHandler.Views.EndProgram;
-                    viewChangeInit = true;
-                    break;
+                    return true;
+                    
             }
             
-            return viewChangeInit;
+            return false;
         }
 
         public virtual bool InputValue()
@@ -91,7 +97,7 @@ namespace LoveHeart.Domain
                 currInputField = InputFields.OTHER;
                 return true;
             }
-            return false;
+            return ActionButtonPressed(Console.ReadKey().Key);
         }
     }
 }

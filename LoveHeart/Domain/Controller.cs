@@ -83,6 +83,7 @@ namespace LoveHeart.Domain
             }
             return false;
         }
+
         public bool AddVeterinary(SystemAdministrator systemAdministrator)
         {
             if (UserNameAvailable(systemAdministrator.UserName))
@@ -92,6 +93,8 @@ namespace LoveHeart.Domain
             }
             return false;
         }
+
+        
 
 
     }

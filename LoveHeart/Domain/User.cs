@@ -23,7 +23,7 @@ namespace LoveHeart.Domain
             }
             return false;
         }
-        public abstract void Init();
+        public abstract void Init(); /// fixa sa detta anvands inne i kostruktor och innehall i konst i denna
         public abstract override string ToString();
         public User(string userName, string passWord = "")
         {

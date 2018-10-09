@@ -6,18 +6,18 @@ namespace LoveHeart.Domain
 {
     class ViewHandler
     {
-        public enum Views { Login, Reception, EndProgram, Customer }
+        public enum Views { Login, Reception, EndProgram, Customer , Main, AddCustomer, AddAnimalAndCustomer, AddAnimalToCustomer }
+        //protected enum ViewInternal { Main, AddCustomer, AddAnimalAndCustomer, AddAnimalToCustomer };
+
         public static Views CurrentView = Views.Login;
         private IView currView;
         private static bool running;
-        private static string message;
-        private string oldMessage;
+        
 
         public ViewHandler()
         {
             running = true;
-            message = "NoMessage";
-            oldMessage = message;
+            
             currView = new ViewLogin();
         }
         public void ViewChange()
@@ -38,19 +38,12 @@ namespace LoveHeart.Domain
             }
             currView.Draw();
         }
-        public bool MessageUpdated()
-        {
-            if(message != oldMessage)
-            {
-                oldMessage = message;
-                return true;
-            }
-            return false;
-        }
+       
         public void Run()
         {
             while(running)
             {
+
                 currView.Draw();
                 if(MessageUpdated())
                 {
@@ -58,11 +51,6 @@ namespace LoveHeart.Domain
                 }
                 ViewChange();
             }
-        }
-        public bool MessageHandled()
-        {
-
-            return false;
         }
     }
 }
