@@ -31,8 +31,8 @@ namespace LoveHeart.Domain
                 case "ViewLogin":
                     currView = new ViewLogin();
                     break;
-                case "ViewCustomer":
-                    //currView = new ViewCustomer();
+                case "AddCustomer":
+                    currView = new ViewAddCustomer("blabla");
                     break;
                 case "ViewReception":
                     currView = new ViewReception("blabla");
@@ -46,7 +46,6 @@ namespace LoveHeart.Domain
                     Console.WriteLine(serverMessage);
                     break;
             }
-            //currView.Draw();
         }
        
         
@@ -56,9 +55,14 @@ namespace LoveHeart.Domain
             {
                 
                 currView.Run(renderer);
-                if (currView.Message() != "")
+                if (serverMessage != "")
                 {
-                    serverMessage = controller.Run(new MessageHandler(currView.Message()));
+                    
+                    ViewChange();
+                }
+                else if (currView.Message() != "")
+                {
+                    serverMessage = controller.Run(currView.Message());
                     ViewChange();
                 }
             }

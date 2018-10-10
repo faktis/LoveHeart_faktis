@@ -9,13 +9,13 @@ namespace LoveHeart.Domain
         //public string Message { get; set; }
         public string Response { get; set; }
         public string Action { get; set; }
-        public string []Parameters { get; set; }
+        public string[] Parameters { get; set; }
         private string oldMessage;
         private string interpreter;
-        
 
 
-        public  MessageHandler()
+
+        public MessageHandler()
         {
             Init();
         }
@@ -41,7 +41,7 @@ namespace LoveHeart.Domain
             Response = "NoResponse";
             Action = "NoAction";
             Parameters = new string[10];
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Parameters[i] = "NoParameter";
             }
@@ -59,38 +59,51 @@ namespace LoveHeart.Domain
             return false;
         }
         */
-        
 
-        public void ParseMessage(string message, int charIndex = 0 ,  int parameterIndex = 0)
+
+        public void ParseMessage(string message, int charIndex = 0, int parameterIndex = 0)
         {
-
+           
+                
+            //if(charIndex+1 < message.Length)
             if (message[charIndex] == ' ')
             {
+                //interpreter += message[charIndex];
+                //interpreter += message[charIndex];
                 if (Action == "NoAction")
                 {
                     Action = interpreter;
                     interpreter = "";
                 }
-                else 
+                else
                 {
-                    if (interpreter != " ")
-                    {
-                        Parameters[parameterIndex] = interpreter;
-                        interpreter = "";
-                        parameterIndex++;
-                    }
+                    Parameters[parameterIndex] = interpreter;
+                    interpreter = "";
+                    parameterIndex++;
                 }
             }
-            if (charIndex+1 < message.Length)
+
+
+
+            if (message[charIndex] != ' ')
+                interpreter += message[charIndex];
+
+            charIndex++;
+
+            if (charIndex < message.Length)
             {
-                if (message[charIndex] != ' ')
-                {
-                    interpreter += message[charIndex];
-                }
-                charIndex++;
-                ParseMessage(message ,charIndex, parameterIndex);
+
+                
+                ParseMessage(message, charIndex, parameterIndex);
             }
-            //return this;
+
+            else if (Action == "NoAction")
+            {
+                Action = interpreter;
+                return;
+            }
+
+            
         }
     }
 }

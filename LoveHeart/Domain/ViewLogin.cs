@@ -59,7 +59,9 @@ namespace LoveHeart.Domain
             switch(key)
             {
                 case ConsoleKey.Y:
-                    message = "Login " + userName + " " + passWord +" ";
+                    message = "TryLogin " + userName + " " + passWord +" ";
+                    userName = "";
+                    passWord = "";
                     return true;
 
                     

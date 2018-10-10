@@ -30,7 +30,12 @@ namespace LoveHeart.Domain
 
         public virtual void Run(Render renderer)
         {
+            
             Draw(renderer);
+            if(ActionButtonPressed(Console.ReadKey().Key))
+            {
+
+            }
         }
 
         public virtual void Draw(Render renderer)
@@ -53,10 +58,10 @@ namespace LoveHeart.Domain
                     //ViewHandler.CurrentView = ViewHandler.Views.Login;
                     return true;
                 case ConsoleKey.C:
-                    message = "ViewCustomer";
+                    message = "AddCustomer";
                     return true;
                 case ConsoleKey.Escape:
-                    message = "ViewEndView";
+                    message = "ViewEndProgram";
                     return true;
             }
             return false;

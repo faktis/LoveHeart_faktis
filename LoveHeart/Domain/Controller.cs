@@ -45,15 +45,21 @@ namespace LoveHeart.Domain
             response = "NoResponse";
         }
 
-        public string Run(MessageHandler message)
+        public string Run(string message)
         {
-            if (message.Action == oldMessage)
+            MessageHandler messageHandler = new MessageHandler(message);
+            if (message != oldMessage)
             {
-                return "Same message as last one";
+               
+                oldMessage = message;
+                Proccess(messageHandler);
             }
-            oldMessage = message.Action;
+            
+               
+            
+            
 
-            Proccess(message);
+
             return response;
             
         }
@@ -62,10 +68,14 @@ namespace LoveHeart.Domain
         {
             switch(message.Action)
             {
-                case "ViewLogin":
+                case "TryLogin":
                     return Login(message.Parameters[0], message.Parameters[1]);
+                case "ViewLogin":
+                    return ViewLogin();
                 case "ViewEndView":
-                    return LogOut();    
+                    return LogOut();
+                case "AddCustomer":
+                    return AddCustomer();
             }
             return false;
         }
@@ -78,7 +88,6 @@ namespace LoveHeart.Domain
                 if (users[userName].PassWordPass(passWord))
                 {
                     activeUser = users[userName];
-                    //ViewHandler.CurrentView = ViewHandler.Views.Reception;
                     response = "ViewReception";
                     return true;
                 }
@@ -93,6 +102,12 @@ namespace LoveHeart.Domain
         {
             activeUser = null;
             response = "ViewEndProgram";
+            return true;
+        }
+
+        private bool ViewLogin()
+        {
+            response =  "ViewLogin";
             return true;
         }
 
@@ -117,15 +132,12 @@ namespace LoveHeart.Domain
             return false;
         }
 
-        public bool AddCustomer(Customer customer)
+        public bool AddCustomer(Customer customer = null)//)
         {
-            if (UserNameAvailable(customer.UserName))
-            {
-                users.Add(customer.UserName, customer);
-                response = "Created Customer Account";
+
+                response = "AddCustomer";
                 return true;
-            }
-            return false;
+
         }
 
         public bool AddReceptionist(Receptionist receptionist)

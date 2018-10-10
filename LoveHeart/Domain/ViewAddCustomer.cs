@@ -35,8 +35,6 @@ namespace LoveHeart.Domain
             {
                 Draw( renderer );
             }
-
-            //ViewHandler.MessageHandler.Message = Message();
         }
 
         public override void Draw(Render renderer)
@@ -45,7 +43,6 @@ namespace LoveHeart.Domain
             renderer.WriteAt("Add Customer", 0, 0);
             renderer.WriteAt("Name: ", 0, 2);
             renderer.WriteAt("Social Sequrity Number: ", 0, 3);
-            //
         }
 
         public override bool InputValue(Render renderer)
@@ -78,7 +75,7 @@ namespace LoveHeart.Domain
             switch (key)
             {
                 case ConsoleKey.A:
-                    message = "$MakeCustomer { user } { socialSequrityNumber } ";
+                    message = "ViewReception";
                     return true;
                 case ConsoleKey.R:
                     Console.Clear();
