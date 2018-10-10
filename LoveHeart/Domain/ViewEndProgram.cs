@@ -11,15 +11,25 @@ namespace LoveHeart.Domain
             throw new NotImplementedException();
         }
 
-        public void Draw()
-        {
-            
+        public void Draw(Render renderer)
+        { 
             Console.WriteLine("Thank you, come again\n");
         }
 
-        public bool InputValue()
+        
+        public bool InputValue(Render renderer)
         {
             throw new NotImplementedException();
+        }
+
+        public string Message()
+        {
+            return "Terminate";
+        }
+
+        public void Run(Render renderer)
+        {
+            Draw(renderer);
         }
     }
 }

@@ -7,11 +7,11 @@ namespace LoveHeart.Domain
 
     interface IView
     {
-        void Draw();
+        void Draw( Render renderer );
+        void Run( Render renderer );
         bool ActionButtonPressed(ConsoleKey key);
-        bool InputValue();
+        bool InputValue( Render renderer);
         string Message();
-        //void Message(string message);
     }
     interface IInput
     {

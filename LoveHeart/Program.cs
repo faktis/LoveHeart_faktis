@@ -8,7 +8,10 @@ namespace LoveHeart
         static void Main(string[] args)
         {
             ViewHandler viewHandler = new ViewHandler();
-            viewHandler.Run();
+            
+            Controller controller = new Controller();
+            viewHandler.Run(controller);
+            //controller.Run();
         }
     }
 }

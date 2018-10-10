@@ -11,13 +11,17 @@ namespace LoveHeart.Domain
 
         public static Views CurrentView = Views.Login;
         private IView currView;
-        private static bool running;
-        
+        private bool running;
 
+
+        public static string response;
+
+        public static Render renderer;
         public ViewHandler()
         {
+            renderer = new Render();
             running = true;
-            
+
             currView = new ViewLogin();
         }
         public void ViewChange()
@@ -28,7 +32,10 @@ namespace LoveHeart.Domain
                     currView = new ViewLogin();
                     break;
                 case Views.Customer:
-                    currView = new ViewCustomer();
+                    //currView = new ViewCustomer();
+                    break;
+                case Views.Reception:
+                    currView = new ViewReception("blabla");
                     break;
                 case Views.EndProgram:
                     Console.Clear();
@@ -36,20 +43,22 @@ namespace LoveHeart.Domain
                     running = false;
                     break;
             }
-            currView.Draw();
+            //currView.Draw();
         }
        
-        public void Run()
+        
+        public void Run(Controller controller)
         {
             while(running)
             {
-
-                currView.Draw();
-                if(MessageUpdated())
+                
+                currView.Run(renderer);
+                if(controller.Run(currView.Message()))
                 {
-
+                    
                 }
                 ViewChange();
+                //ViewChange();
             }
         }
     }

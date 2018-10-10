@@ -4,12 +4,12 @@ using System.Text;
 
 namespace LoveHeart.Domain
 {
-    class Draw
+    class Render
     {
         private static int origRow;
         private static int origCol;
 
-        public Draw()
+        public Render()
         {
             Console.Clear();
             origRow = Console.CursorTop;

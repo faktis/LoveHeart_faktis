@@ -6,29 +6,28 @@ namespace LoveHeart.Domain
 {
     class MessageHandler
     {
-        public static string Message { get; set; }
+        public string Message { get; set; }
         public string Response { get; set; }
         public string Action { get; set; }
         public string []Parameters { get; set; }
-
-
-
-
         private string oldMessage;
-        private string tempString;
+        private string interpreter;
+        
+
 
         public  MessageHandler()
         {
             Init();
         }
 
-        public void Run()
+        public bool Run()
         {
             if(MessageUpdated())
             {
                 ParseMessage();
-
+                return true;
             }
+            return false;
         }
 
         private void Init()
@@ -42,7 +41,7 @@ namespace LoveHeart.Domain
                 Parameters[i] = "NoParameter";
             }
             oldMessage = Message;
-            tempString = "";
+            interpreter = "";
         }
 
         public bool MessageUpdated()
@@ -55,28 +54,35 @@ namespace LoveHeart.Domain
             return false;
         }
 
+
+
         public void ParseMessage(int charIndex = 0 ,  int parameterIndex = 0)
         {
+
             if (Message[charIndex] == ' ')
             {
                 if (Action == "NoAction")
                 {
-                    Action = tempString;
-                    tempString = "";
+                    Action = interpreter;
+                    interpreter = "";
                 }
-                else
+                else 
                 {
-                    Parameters[parameterIndex] = tempString;
-                    tempString = "";
-                    parameterIndex++;
+                    if (interpreter != " ")
+                    {
+                        Parameters[parameterIndex] = interpreter;
+                        interpreter = "";
+                        parameterIndex++;
+                    }
                 }
             }
-            if (charIndex != Message.Length)
+            if (charIndex+1 < Message.Length)
             {
-
-                tempString += Message[charIndex];
-                ParseMessage(charIndex++, parameterIndex);
-            } 
+                if(Message[charIndex] != ' ')
+                    interpreter += Message[charIndex];
+                charIndex++;
+                ParseMessage(charIndex, parameterIndex);
+            }
         }
     }
 }
