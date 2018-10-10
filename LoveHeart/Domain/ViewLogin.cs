@@ -11,7 +11,7 @@ namespace LoveHeart.Domain
         private InputFields currInputField;
         private string userName;
         private string passWord;
-        public string Response { private get; set; }
+        //public string Response { private get; set; }
         private string message;
         public IView CurrentViewInternal { get; set; }
         
@@ -22,7 +22,7 @@ namespace LoveHeart.Domain
             currInputField = InputFields.USERNAME;
             userName = "";
             passWord = "";
-            Response = messageFromController;
+            //Response = messageFromController;
             message = "";
         }
 
@@ -51,7 +51,6 @@ namespace LoveHeart.Domain
             }
             
 
-            //ActionButtonPressed(Console.ReadKey().Key);
    
         }
 
@@ -68,11 +67,11 @@ namespace LoveHeart.Domain
                     Console.Clear();
                     userName = "";
                     passWord = "";
-                    
+                    message = "";
                     currInputField = InputFields.USERNAME;
                     break;
                 case ConsoleKey.Escape:
-                    ViewHandler.CurrentView = ViewHandler.Views.EndProgram;
+                    message = "ViewEndView";
                     return true;       
             }
             return false;

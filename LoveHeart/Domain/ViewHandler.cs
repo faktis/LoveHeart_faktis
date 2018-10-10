@@ -6,41 +6,44 @@ namespace LoveHeart.Domain
 {
     class ViewHandler
     {
-        public enum Views { Login, Reception, EndProgram, Customer , Main, AddCustomer, AddAnimalAndCustomer, AddAnimalToCustomer }
+        //public enum Views { Login, Reception, EndProgram, Customer , Main, AddCustomer, AddAnimalAndCustomer, AddAnimalToCustomer }
         //protected enum ViewInternal { Main, AddCustomer, AddAnimalAndCustomer, AddAnimalToCustomer };
 
-        public static Views CurrentView = Views.Login;
+        //public static Views CurrentView = Views.Login;
         private IView currView;
         private bool running;
 
-
-        public static string response;
+        private string serverMessage;
+        
 
         public static Render renderer;
         public ViewHandler()
         {
             renderer = new Render();
             running = true;
-
+            serverMessage = "";
             currView = new ViewLogin();
         }
         public void ViewChange()
         {
-            switch (CurrentView)
+            switch (serverMessage)
             {
-                case Views.Login:
+                case "ViewLogin":
                     currView = new ViewLogin();
                     break;
-                case Views.Customer:
+                case "ViewCustomer":
                     //currView = new ViewCustomer();
                     break;
-                case Views.Reception:
+                case "ViewReception":
                     currView = new ViewReception("blabla");
                     break;
-                case Views.EndProgram:
+                case "ViewEndProgram":
                     Console.Clear();
                     currView = new ViewEndProgram();
                     running = false;
+                    break;
+                default:
+                    Console.WriteLine(serverMessage);
                     break;
             }
             //currView.Draw();
@@ -53,12 +56,11 @@ namespace LoveHeart.Domain
             {
                 
                 currView.Run(renderer);
-                if(controller.Run(currView.Message()))
+                if (currView.Message() != "")
                 {
-                    
+                    serverMessage = controller.Run(new MessageHandler(currView.Message()));
+                    ViewChange();
                 }
-                ViewChange();
-                //ViewChange();
             }
         }
     }

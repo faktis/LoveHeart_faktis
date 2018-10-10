@@ -18,7 +18,7 @@ namespace LoveHeart.Domain
             Console.Clear();
             UserName = userName;
             LoggedIn = true;
-            message = "Reception";
+            message = "";
             //messageHandler comu
 
         }
@@ -30,10 +30,7 @@ namespace LoveHeart.Domain
 
         public virtual void Run(Render renderer)
         {
-            while (!InputValue(renderer))
-            {
-                Draw(renderer);
-            }
+            Draw(renderer);
         }
 
         public virtual void Draw(Render renderer)
@@ -52,14 +49,14 @@ namespace LoveHeart.Domain
             {
                 case ConsoleKey.O:
                     LoggedIn = false;
-                    message = "LogOut";
-                    ViewHandler.CurrentView = ViewHandler.Views.Login;
+                    message = "ViewLogin";
+                    //ViewHandler.CurrentView = ViewHandler.Views.Login;
                     return true;
                 case ConsoleKey.C:
-                    ViewHandler.CurrentView = ViewHandler.Views.AddCustomer;
+                    message = "ViewCustomer";
                     return true;
                 case ConsoleKey.Escape:
-                    ViewHandler.CurrentView = ViewHandler.Views.EndProgram;
+                    message = "ViewEndView";
                     return true;
             }
             return false;

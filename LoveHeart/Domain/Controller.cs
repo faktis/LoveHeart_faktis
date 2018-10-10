@@ -8,10 +8,21 @@ namespace LoveHeart.Domain
     {
         private IUser activeUser;
         private Dictionary<string, IUser> users;
+        private string oldMessage;
+        private string response;
+        public string ServerResponse
+        {
+            get { return response; }
+            private set { response = value; }
+        }
 
-        public string Response { get; private set; }
 
-        private MessageHandler messageHandler;
+        //public string Response { get; private set; }
+
+
+        
+
+        //private MessageHandler messageHandler;
 
         public Controller()
         {
@@ -23,39 +34,37 @@ namespace LoveHeart.Domain
 
 
 
+
             ///////
 
         
 
-            messageHandler = new MessageHandler();
+            //messageHandler = new MessageHandler();
             activeUser = null;
-            Response = "";
+            oldMessage = "NoMessage";
+            response = "NoResponse";
         }
 
-        public bool Run(string message)
+        public string Run(MessageHandler message)
         {
-            //messageHandler.Message = message;
-            messageHandler.Message = message;
-            if (messageHandler.Run())
+            if (message.Action == oldMessage)
             {
-                
-                if (Proccess())
-                {
-                    //messageHandler
-                    return true;
-                    //MessageHandler.Message = "blabal";
-                }
+                return "Same message as last one";
             }
-            return false; 
+            oldMessage = message.Action;
+
+            Proccess(message);
+            return response;
+            
         }
 
-        private bool Proccess()
+        private bool Proccess(MessageHandler message)
         {
-            switch(messageHandler.Action)
+            switch(message.Action)
             {
-                case "Login":
-                    return Login(messageHandler.Parameters[0], messageHandler.Parameters[1]);
-                case "LogOut":
+                case "ViewLogin":
+                    return Login(message.Parameters[0], message.Parameters[1]);
+                case "ViewEndView":
                     return LogOut();    
             }
             return false;
@@ -63,24 +72,27 @@ namespace LoveHeart.Domain
 
         private bool Login(string userName, string passWord)
         {
+            
             if (users.ContainsKey(userName))
             {
                 if (users[userName].PassWordPass(passWord))
                 {
                     activeUser = users[userName];
-                    messageHandler.Response = "Successfull Login";
-                    ViewHandler.CurrentView = ViewHandler.Views.Reception;
+                    //ViewHandler.CurrentView = ViewHandler.Views.Reception;
+                    response = "ViewReception";
                     return true;
                 }
+                response = "Wrong password";
+                return false;
             }
-            messageHandler.Response = "Failed login";
+            response = "Could not find any users with that name";
             return false;
         }
 
         public bool LogOut()
         {
             activeUser = null;
-            messageHandler.Response = "User logged out";
+            response = "ViewEndProgram";
             return true;
         }
 
@@ -88,7 +100,7 @@ namespace LoveHeart.Domain
         {
             if (!users.ContainsKey(userName))
             {
-                messageHandler.Response = "Already exist user with that name";
+                response = "Already exist user with that name";
                 return true;
             }
             return false;
@@ -99,7 +111,7 @@ namespace LoveHeart.Domain
             if (UserNameAvailable(user.UserName))
             {
                 users.Add(user.UserName, user);
-                messageHandler.Response = "Created User Account";
+                response = "Created User Account";
                 return true;
             }
             return false;
@@ -110,7 +122,7 @@ namespace LoveHeart.Domain
             if (UserNameAvailable(customer.UserName))
             {
                 users.Add(customer.UserName, customer);
-                messageHandler.Response = "Created Customer Account";
+                response = "Created Customer Account";
                 return true;
             }
             return false;
@@ -121,7 +133,7 @@ namespace LoveHeart.Domain
             if (UserNameAvailable(receptionist.UserName))
             {
                 users.Add(receptionist.UserName, receptionist);
-                messageHandler.Response = "Created Receptionist Account";
+                response = "Created Receptionist Account";
                 return true;
             }
             return false;
@@ -132,7 +144,7 @@ namespace LoveHeart.Domain
             if (UserNameAvailable(veterinary.UserName))
             {
                 users.Add(veterinary.UserName, veterinary);
-                messageHandler.Response = "Created Veterinary Account";
+                response = "Created Veterinary Account";
                 return true;
             }
             return false;
@@ -143,7 +155,7 @@ namespace LoveHeart.Domain
             if (UserNameAvailable(systemAdministrator.UserName))
             {
                 users.Add(systemAdministrator.UserName, systemAdministrator);
-                messageHandler.Response = "Created System Administrator Account";
+                response = "Created System Administrator Account";
                 return true;
             }
             return false;

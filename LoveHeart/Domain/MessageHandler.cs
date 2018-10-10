@@ -6,7 +6,7 @@ namespace LoveHeart.Domain
 {
     class MessageHandler
     {
-        public string Message { get; set; }
+        //public string Message { get; set; }
         public string Response { get; set; }
         public string Action { get; set; }
         public string []Parameters { get; set; }
@@ -19,31 +19,36 @@ namespace LoveHeart.Domain
         {
             Init();
         }
-
+        public MessageHandler(string message)
+        {
+            Init();
+            ParseMessage(message);
+        }
+        /*
         public bool Run()
         {
             if(MessageUpdated())
             {
                 ParseMessage();
-                return true;
+                //return true;
             }
-            return false;
+            return true;
         }
+        */
 
         private void Init()
         {
             Response = "NoResponse";
-            Message = "NoMessage";
             Action = "NoAction";
             Parameters = new string[10];
             for(int i = 0; i < 10; i++)
             {
                 Parameters[i] = "NoParameter";
             }
-            oldMessage = Message;
+            oldMessage = "";
             interpreter = "";
         }
-
+        /*
         public bool MessageUpdated()
         {
             if (Message != oldMessage)
@@ -53,13 +58,13 @@ namespace LoveHeart.Domain
             }
             return false;
         }
+        */
+        
 
-
-
-        public void ParseMessage(int charIndex = 0 ,  int parameterIndex = 0)
+        public void ParseMessage(string message, int charIndex = 0 ,  int parameterIndex = 0)
         {
 
-            if (Message[charIndex] == ' ')
+            if (message[charIndex] == ' ')
             {
                 if (Action == "NoAction")
                 {
@@ -76,13 +81,16 @@ namespace LoveHeart.Domain
                     }
                 }
             }
-            if (charIndex+1 < Message.Length)
+            if (charIndex+1 < message.Length)
             {
-                if(Message[charIndex] != ' ')
-                    interpreter += Message[charIndex];
+                if (message[charIndex] != ' ')
+                {
+                    interpreter += message[charIndex];
+                }
                 charIndex++;
-                ParseMessage(charIndex, parameterIndex);
+                ParseMessage(message ,charIndex, parameterIndex);
             }
+            //return this;
         }
     }
 }

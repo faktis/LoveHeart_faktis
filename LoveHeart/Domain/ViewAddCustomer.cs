@@ -10,6 +10,8 @@ namespace LoveHeart.Domain
         private string socialSequrityNumber;
         private enum InputFields { Name, SocialSequrityNumber, Other }
         private InputFields currentInputField;
+
+        private string message;
         
 
         public ViewAddCustomer(string userName) : base(userName)
@@ -24,7 +26,7 @@ namespace LoveHeart.Domain
 
         public override string Message()
         {
-            return "$MakeCustomer { user } { socialSequrityNumber } ";
+            return message;
         }
 
         public override void Run(Render renderer)
@@ -76,6 +78,7 @@ namespace LoveHeart.Domain
             switch (key)
             {
                 case ConsoleKey.A:
+                    message = "$MakeCustomer { user } { socialSequrityNumber } ";
                     return true;
                 case ConsoleKey.R:
                     Console.Clear();
@@ -84,7 +87,7 @@ namespace LoveHeart.Domain
                     currentInputField = InputFields.Name;
                     return false;
                 case ConsoleKey.Escape:
-                    ViewHandler.CurrentView = ViewHandler.Views.EndProgram;
+                    message = "ViewEndProgram";
                     return true;
 
             }
